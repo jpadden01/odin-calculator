@@ -69,11 +69,7 @@ body, button {
     flex: 1;
 }
 
-.zero {
-    flex: 2;
-}
-
-.decimal {
+.zero, .decimal, .clear {
     flex: 1;
 }
 
