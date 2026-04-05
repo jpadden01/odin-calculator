@@ -93,7 +93,7 @@ operatorButtons.forEach((cur) => {
         cur.addEventListener("click", () => operate(num1Global, num2Global, operatorGlobal));
     } else {
         cur.addEventListener("click", () => {
-            if (operatorGlobal) {
+            if (num2Global) {
                 operate(num1Global, num2Global, operatorGlobal);
             }
             operatorGlobal = cur.textContent;
