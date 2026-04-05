@@ -1,6 +1,6 @@
-let num1;
-let operator;
-let num2;
+let num1Global;
+let operatorGlobal;
+let num2Global;
 
 let displayValue = document.querySelector(".display-value");
 let numberButtons = document.querySelectorAll(".number, .zero");
@@ -37,24 +37,24 @@ function divide(num1, num2) {
 }
 
 function updateNumber(num) {
-    if (operator === undefined) {
-        num1 = (num1 === undefined)? 
+    if (operatorGlobal === undefined) {
+        num1Global = (num1Global === undefined)? 
             Number(num)
-            : Number(num1.toString() + num);
-        displayValue.textContent = num1;
+            : Number(num1Global.toString() + num);
+        displayValue.textContent = num1Global;
     } else {
-        num2 = (num2 === undefined)? 
+        num2Global = (num2Global === undefined)? 
             Number(num)
-            : Number(num2.toString() + num);
-        displayValue.textContent = num2;
+            : Number(num2Global.toString() + num);
+        displayValue.textContent = num2Global;
     }
 }
 
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
 operatorButtons.forEach((cur) => {
     if (cur.textContent === "=") {
-        cur.addEventListener("click", () => operate(num1, num2, operator));
+        cur.addEventListener("click", () => operate(num1Global, num2Global, operatorGlobal));
     } else {
-        cur.addEventListener("click", () => operator = cur.textContent);
+        cur.addEventListener("click", () => operatorGlobal = cur.textContent);
     }
 });
