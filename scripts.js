@@ -4,16 +4,17 @@ let num2;
 
 let displayValue = document.querySelector(".display-value");
 let numberButtons = document.querySelectorAll(".number, .zero");
+let operatorButtons = document.querySelectorAll(".operator");
 
 function operate(num1, num2, operator) {
     switch (operator) {
-        case "add":
+        case "+":
             return add(num1, num2);
-        case "subtract":
+        case "-":
             return subtract(num1, num2);
-        case "multiply":
+        case "*":
             return multiply(num1, num2);
-        case "divide":
+        case "/":
             return divide(num1, num2);
     }
 }
@@ -50,3 +51,10 @@ function updateNumber(num) {
 }
 
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
+operatorButtons.forEach((cur) => {
+    if (cur.textContent === "=") {
+        cur.addEventListener("click", () => operate(num1, num2, operator));
+    } else {
+        cur.addEventListener("click", () => operator = cur.textContent);
+    }
+});
