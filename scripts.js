@@ -1,8 +1,10 @@
+const DISPLAY_WIDTH = 12;
+
 let num1Global;
 let operatorGlobal;
 let num2Global;
 
-let displayValue = document.querySelector(".display-value");
+let display = document.querySelector(".display-value");
 let numberButtons = document.querySelectorAll(".number, .zero");
 let operatorButtons = document.querySelectorAll(".operator");
 let clearButton = document.querySelector(".clear");
@@ -24,7 +26,7 @@ function operate(num1, num2, operator) {
     }
     num2Global = undefined;
     operatorGlobal = undefined;
-    displayValue.textContent = num1Global;
+    updateDisplay();
 }
 
 function add(num1, num2) {
@@ -52,13 +54,31 @@ function updateNumber(num) {
         num1Global = (num1Global === undefined)? 
             Number(num)
             : Number(num1Global.toString() + num);
-        displayValue.textContent = num1Global;
-    } else {
+        updateDisplay();
+        } else {
         num2Global = (num2Global === undefined)? 
             Number(num)
             : Number(num2Global.toString() + num);
-        displayValue.textContent = num2Global;
+            updateDisplay();
+        }
+}
+
+function updateDisplay() {
+    let displayValue = (num2Global === undefined)? num1Global : num2Global;
+    
+    if (displayValue >= 10 ** DISPLAY_WIDTH) {
+        displayValue = "Too large..."
+        num1Global = 0;
+        num2Global = undefined;
+        operatorGlobal = undefined;
     }
+
+    displayValue = String(displayValue);
+    if (displayValue.length > DISPLAY_WIDTH) {
+        displayValue = displayValue.substring(0, DISPLAY_WIDTH);
+    }
+
+    display.textContent = displayValue;
 }
 
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
@@ -78,5 +98,5 @@ clearButton.addEventListener("click", () => {
     num1Global = 0;
     num2Global = undefined;
     operatorGlobal = undefined;
-    displayValue.textContent = num1Global;
+    updateDisplay();
 });
