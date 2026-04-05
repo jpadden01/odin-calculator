@@ -66,7 +66,10 @@ operatorButtons.forEach((cur) => {
     if (cur.textContent === "=") {
         cur.addEventListener("click", () => operate(num1Global, num2Global, operatorGlobal));
     } else {
-        cur.addEventListener("click", () => operatorGlobal = cur.textContent);
+        cur.addEventListener("click", () => {
+            operatorGlobal = cur.textContent;
+            displayValue.textContent = num2Global;
+        });
     }
 });
 clearButton.addEventListener("click", () => {
