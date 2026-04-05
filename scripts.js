@@ -39,12 +39,12 @@ function divide(num1, num2) {
 function updateNumber(num) {
     if (operator === undefined) {
         num1 = (num1 === undefined)? 
-            num
+            Number(num)
             : Number(num1.toString() + num);
         displayValue.textContent = num1;
     } else {
         num2 = (num2 === undefined)? 
-            num
+            Number(num)
             : Number(num2.toString() + num);
         displayValue.textContent = num2;
     }
