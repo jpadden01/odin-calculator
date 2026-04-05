@@ -1,4 +1,6 @@
 const DISPLAY_WIDTH = 12;
+const MAX_VALUE = 10 ** DISPLAY_WIDTH;
+const MIN_VALUE = -(10 ** (DISPLAY_WIDTH - 1));
 
 let num1Global;
 let operatorGlobal;
@@ -65,8 +67,8 @@ function updateNumber(num) {
 
 function updateDisplay() {
     let displayValue = (num2Global === undefined)? num1Global : num2Global;
-    
-    if (displayValue >= 10 ** DISPLAY_WIDTH) {
+ 
+    if (displayValue < MIN_VALUE || MAX_VALUE < displayValue) {
         displayValue = "Too large...";
         clear();
     }
