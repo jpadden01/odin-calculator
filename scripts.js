@@ -67,10 +67,8 @@ function updateDisplay() {
     let displayValue = (num2Global === undefined)? num1Global : num2Global;
     
     if (displayValue >= 10 ** DISPLAY_WIDTH) {
-        displayValue = "Too large..."
-        num1Global = 0;
-        num2Global = undefined;
-        operatorGlobal = undefined;
+        displayValue = "Too large...";
+        clear();
     }
 
     displayValue = String(displayValue);
@@ -79,6 +77,12 @@ function updateDisplay() {
     }
 
     display.textContent = displayValue;
+}
+
+function clear() {
+    num1Global = 0;
+    num2Global = undefined;
+    operatorGlobal = undefined;
 }
 
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
@@ -95,8 +99,6 @@ operatorButtons.forEach((cur) => {
     }
 });
 clearButton.addEventListener("click", () => {
-    num1Global = 0;
-    num2Global = undefined;
-    operatorGlobal = undefined;
+    clear();
     updateDisplay();
 });
