@@ -5,6 +5,7 @@ let num2Global;
 let displayValue = document.querySelector(".display-value");
 let numberButtons = document.querySelectorAll(".number, .zero");
 let operatorButtons = document.querySelectorAll(".operator");
+let clearButton = document.querySelector(".clear");
 
 function operate(num1, num2, operator) {
     switch (operator) {
@@ -64,4 +65,10 @@ operatorButtons.forEach((cur) => {
     } else {
         cur.addEventListener("click", () => operatorGlobal = cur.textContent);
     }
+});
+clearButton.addEventListener("click", () => {
+    num1Global = 0;
+    num2Global = undefined;
+    operatorGlobal = undefined;
+    displayValue.textContent = num1Global;
 });
