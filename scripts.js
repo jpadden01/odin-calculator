@@ -40,7 +40,10 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    if (num2 === 0) return "Can not divide by zero"
+    if (num2 === 0) {
+        alert("Can not divide by zero");
+        return num1;
+    } 
     return num1 / num2;
 }
 
