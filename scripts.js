@@ -4,10 +4,10 @@ let num1Global;
 let operatorGlobal;
 let num2Global;
 
-let display = document.querySelector(".display-value");
-let numberButtons = document.querySelectorAll(".number, .zero");
-let operatorButtons = document.querySelectorAll(".operator");
-let clearButton = document.querySelector(".clear");
+const display = document.querySelector(".display-value");
+const numberButtons = document.querySelectorAll(".number, .zero");
+const operatorButtons = document.querySelectorAll(".operator");
+const clearButton = document.querySelector(".clear");
 
 function operate(num1, num2, operator) {
     switch (operator) {
