@@ -9,14 +9,21 @@ let operatorButtons = document.querySelectorAll(".operator");
 function operate(num1, num2, operator) {
     switch (operator) {
         case "+":
-            return add(num1, num2);
+            num1Global = add(num1, num2);
+            break;
         case "−":
-            return subtract(num1, num2);
+            num1Global = subtract(num1, num2);
+            break;
         case "×":
-            return multiply(num1, num2);
+            num1Global = multiply(num1, num2);
+            break;
         case "÷":
-            return divide(num1, num2);
+            num1Global = divide(num1, num2);
+            break;
     }
+    num2Global = undefined;
+    operatorGlobal = undefined;
+    displayValue.textContent = num1Global;
 }
 
 function add(num1, num2) {
