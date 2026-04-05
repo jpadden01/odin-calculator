@@ -5,6 +5,7 @@ const MIN_VALUE = -(10 ** (DISPLAY_WIDTH - 1));
 let num1Global;
 let operatorGlobal;
 let num2Global;
+let recentlyOperated;
 
 const display = document.querySelector(".display-value");
 const numberButtons = document.querySelectorAll(".number, .zero");
@@ -28,6 +29,7 @@ function operate(num1, num2, operator) {
     }
     num2Global = undefined;
     operatorGlobal = undefined;
+    recentlyOperated = true;
     updateDisplay();
 }
 
@@ -52,17 +54,19 @@ function divide(num1, num2) {
 }
 
 function updateNumber(num) {
-    if (operatorGlobal === undefined) {
+    if (recentlyOperated) {
+        num1Global = Number(num);
+    } else if (operatorGlobal === undefined) {
         num1Global = (num1Global === undefined)? 
             Number(num)
             : Number(num1Global.toString() + num);
-        updateDisplay();
-        } else {
+    } else {
         num2Global = (num2Global === undefined)? 
             Number(num)
             : Number(num2Global.toString() + num);
-            updateDisplay();
-        }
+    }
+    recentlyOperated = false;
+    updateDisplay();    
 }
 
 function updateDisplay() {
@@ -85,6 +89,7 @@ function clear() {
     num1Global = 0;
     num2Global = undefined;
     operatorGlobal = undefined;
+    recentlyOperated = true;
 }
 
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
