@@ -59,6 +59,7 @@ function divide() {
 function updateInput(num) {
     input.push(num);
     recentlyOperated = false;
+    trimInput();
     updateDisplay();
 }
 
