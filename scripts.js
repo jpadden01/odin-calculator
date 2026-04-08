@@ -122,7 +122,7 @@ operatorButtons.forEach((cur) => {
                     operator = "-";
                     recentlyOperated = false;
                 } else if (!input.length) {
-                    input.push("-");
+                    updateInput("-");
                 } else {
                     setNumber();
                     if (operator) {
