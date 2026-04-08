@@ -2,9 +2,9 @@ const DISPLAY_WIDTH = 12;
 const MAX_VALUE = 10 ** DISPLAY_WIDTH;
 const MIN_VALUE = -(10 ** (DISPLAY_WIDTH - 1));
 
-let num1Global;
-let num2Global;
-let operatorGlobal;
+let num1;
+let num2;
+let operator;
 let recentlyOperated;
 
 let input = [];
@@ -14,40 +14,40 @@ const numberButtons = document.querySelectorAll(".number, .zero");
 const operatorButtons = document.querySelectorAll(".operator");
 const clearButton = document.querySelector(".clear");
 
-function operate(num1, num2, operator) {
+function operate() {
     switch (operator) {
         case "+":
-            num1Global = add(num1, num2);
+            num1 = add();
             break;
         case "-":
-            num1Global = subtract(num1, num2);
+            num1 = subtract();
             break;
         case "×":
-            num1Global = multiply(num1, num2);
+            num1 = multiply();
             break;
         case "÷":
-            num1Global = divide(num1, num2);
+            num1 = divide();
             break;
     }
-    num2Global = undefined;
-    operatorGlobal = undefined;
+    num2 = undefined;
+    operator = undefined;
     recentlyOperated = true;
     updateDisplay();
 }
 
-function add(num1, num2) {
+function add() {
     return num1 + num2;
 }
 
-function subtract(num1, num2) {
+function subtract() {
     return num1 - num2;
 }
 
-function multiply(num1, num2) {
+function multiply() {
     return num1 * num2;
 }
 
-function divide(num1, num2) {
+function divide() {
     if (num2 === 0) {
         alert("Can not divide by zero");
         return num1;
@@ -62,9 +62,9 @@ function updateNumber(num) {
 }
 
 function updateDisplay() {
-    const displayValue = recentlyOperated ? String(num1Global) : input.join("");
+    const displayValue = recentlyOperated ? String(num1) : input.join("");
 
-    if (Number(displayValue > MAX_VALUE)) {
+    if (Number(displayValue) > MAX_VALUE || Number(displayValue < MIN_VALUE)) {
         display.textContent = "Too large...";
         clear();
         return;
@@ -79,20 +79,20 @@ function updateDisplay() {
 }
 
 function clear() {
-    num1Global = 0;
-    num2Global = undefined;
+    num1 = 0;
+    num2 = undefined;
     input = [];
-    operatorGlobal = undefined;
+    operator = undefined;
     recentlyOperated = false;
 }
 
 function setNumber() {
     const inputNumber = Number(input.join(""));
-    if (recentlyOperated || !operatorGlobal) {
-        num1Global = inputNumber;
+    if (recentlyOperated || !operator) {
+        num1 = inputNumber;
         recentlyOperated = false;
     } else {
-        num2Global = inputNumber;
+        num2 = inputNumber;
     }
     input = [];
 }
@@ -103,22 +103,22 @@ operatorButtons.forEach((cur) => {
         case "=":
             cur.addEventListener("click", () => {
                 setNumber();
-                operate(num1Global, num2Global, operatorGlobal);
+                operate();
             });
             break;
         case "-":
             cur.addEventListener("click", () => {
                 if (recentlyOperated) {
-                    operatorGlobal = "-";
+                    operator = "-";
                     recentlyOperated = false;
                 } else if (!input.length) {
                     input.push("-");
                 } else {
                     setNumber();
-                    if (operatorGlobal) {
-                        operate(num1Global, num2Global, operatorGlobal);
+                    if (operator) {
+                        operate();
                     }
-                    operatorGlobal = "-";
+                    operator = "-";
                 }
             });
             break;
@@ -128,10 +128,10 @@ operatorButtons.forEach((cur) => {
                     setNumber();
                 }
                 recentlyOperated = false;
-                if (operatorGlobal) {
-                    operate(num1Global, num2Global, operatorGlobal);
+                if (operator) {
+                    operate();
                 }
-                operatorGlobal = cur.textContent;
+                operator = cur.textContent;
             });
     }
 });
