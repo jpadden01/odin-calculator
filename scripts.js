@@ -109,6 +109,11 @@ function trimInput() {
     if (isNegative) input.unshift('-');
 }
 
+function backspace() {
+    input.pop();
+    updateDisplay();
+}
+
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateInput(cur.textContent)));
 operatorButtons.forEach((cur) => {
     switch (cur.textContent) {
