@@ -86,6 +86,7 @@ function clear() {
     input = [];
     operator = undefined;
     recentlyOperated = false;
+    updateDisplay();
 }
 
 function setNumber() {
@@ -148,11 +149,9 @@ operatorButtons.forEach((cur) => {
 });
 clearButton.addEventListener("click", () => {
     clear();
-    updateDisplay();
 });
 decimalButton.addEventListener("click", () => {
     if (!input.includes('.')) {
         updateInput('.');
-        updateDisplay();
     }
 });
