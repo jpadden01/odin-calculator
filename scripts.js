@@ -13,6 +13,7 @@ const display = document.querySelector(".display-value");
 const numberButtons = document.querySelectorAll(".number, .zero");
 const operatorButtons = document.querySelectorAll(".operator");
 const clearButton = document.querySelector(".clear");
+const decimalButton = document.querySelector('.decimal');
 
 function operate() {
     switch (operator) {
