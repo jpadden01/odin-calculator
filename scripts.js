@@ -7,6 +7,8 @@ let num2Global;
 let operatorGlobal;
 let recentlyOperated;
 
+let input = [];
+
 const display = document.querySelector(".display-value");
 const numberButtons = document.querySelectorAll(".number, .zero");
 const operatorButtons = document.querySelectorAll(".operator");
@@ -17,7 +19,7 @@ function operate(num1, num2, operator) {
         case "+":
             num1Global = add(num1, num2);
             break;
-        case "−":
+        case "-":
             num1Global = subtract(num1, num2);
             break;
         case "×":
@@ -54,28 +56,23 @@ function divide(num1, num2) {
 }
 
 function updateNumber(num) {
-    if (recentlyOperated) {
-        num1Global = Number(num);
-    } else if (operatorGlobal === undefined) {
-        num1Global = (num1Global === undefined) ? Number(num) : Number(num1Global.toString() + num);
-    } else {
-        num2Global = (num2Global === undefined) ? Number(num) : Number(num2Global.toString() + num);
-    }
+    input.push(num);
     recentlyOperated = false;
     updateDisplay();
 }
 
 function updateDisplay() {
-    let displayValue = (num2Global === undefined) ? num1Global : num2Global;
+    const displayValue = recentlyOperated ? String(num1Global) : input.join("");
 
-    if (displayValue < MIN_VALUE || MAX_VALUE < displayValue) {
-        displayValue = "Too large...";
+    if (Number(displayValue > MAX_VALUE)) {
+        display.textContent = "Too large...";
         clear();
+        return;
     }
 
-    displayValue = String(displayValue);
     if (displayValue.length > DISPLAY_WIDTH) {
-        displayValue = displayValue.substring(0, DISPLAY_WIDTH);
+        display.textContent = displayValue.substring(0, DISPLAY_WIDTH);
+        return;
     }
 
     display.textContent = displayValue;
@@ -84,23 +81,60 @@ function updateDisplay() {
 function clear() {
     num1Global = 0;
     num2Global = undefined;
+    input = [];
     operatorGlobal = undefined;
-    recentlyOperated = true;
+    recentlyOperated = false;
+}
+
+function setNumber() {
+    const inputNumber = Number(input.join(""));
+    if (recentlyOperated || !operatorGlobal) {
+        num1Global = inputNumber;
+        recentlyOperated = false;
+    } else {
+        num2Global = inputNumber;
+    }
+    input = [];
 }
 
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
-operatorButtons.forEach((cur) => {
-    if (cur.textContent === "=") {
-        cur.addEventListener("click", () => operate(num1Global, num2Global, operatorGlobal));
-    } else {
-        cur.addEventListener("click", () => {
-            if (num2Global) {
+operatorButtons.forEach((cur => {
+    switch (cur.textContent) {
+        case "=":
+            cur.addEventListener("click", () => {
+                setNumber();
                 operate(num1Global, num2Global, operatorGlobal);
-            }
-            operatorGlobal = cur.textContent;
-        });
+            });
+            break;
+        case "-":
+            cur.addEventListener("click", () => {
+                if (recentlyOperated) {
+                    operatorGlobal = "-";
+                    recentlyOperated = false;
+                } else if (!input.length) {
+                    input.push("-");
+                } else {
+                    setNumber();
+                    if (operatorGlobal) {
+                        operate(num1Global, num2Global, operatorGlobal);
+                    }
+                    operatorGlobal = "-";
+                }
+            });
+            break;
+        default:
+            cur.addEventListener("click", () => {
+                if (!recentlyOperated) {
+                    setNumber();
+                }
+                recentlyOperated = false;
+                if (operatorGlobal) {
+                    operate(num1Global, num2Global, operatorGlobal);
+                }
+                operatorGlobal = cur.textContent;
+            });
     }
-});
+}));
 clearButton.addEventListener("click", () => {
     clear();
     updateDisplay();
