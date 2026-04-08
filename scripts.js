@@ -49,7 +49,7 @@ function divide(num1, num2) {
     if (num2 === 0) {
         alert("Can not divide by zero");
         return num1;
-    } 
+    }
     return num1 / num2;
 }
 
@@ -57,17 +57,17 @@ function updateNumber(num) {
     if (recentlyOperated) {
         num1Global = Number(num);
     } else if (operatorGlobal === undefined) {
-        num1Global = (num1Global === undefined)? Number(num) : Number(num1Global.toString() + num);
+        num1Global = (num1Global === undefined) ? Number(num) : Number(num1Global.toString() + num);
     } else {
-        num2Global = (num2Global === undefined)? Number(num) : Number(num2Global.toString() + num);
+        num2Global = (num2Global === undefined) ? Number(num) : Number(num2Global.toString() + num);
     }
     recentlyOperated = false;
-    updateDisplay();    
+    updateDisplay();
 }
 
 function updateDisplay() {
-    let displayValue = (num2Global === undefined)? num1Global : num2Global;
- 
+    let displayValue = (num2Global === undefined) ? num1Global : num2Global;
+
     if (displayValue < MIN_VALUE || MAX_VALUE < displayValue) {
         displayValue = "Too large...";
         clear();
