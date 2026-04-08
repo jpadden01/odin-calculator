@@ -98,7 +98,7 @@ function setNumber() {
 }
 
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
-operatorButtons.forEach((cur => {
+operatorButtons.forEach((cur) => {
     switch (cur.textContent) {
         case "=":
             cur.addEventListener("click", () => {
@@ -134,7 +134,7 @@ operatorButtons.forEach((cur => {
                 operatorGlobal = cur.textContent;
             });
     }
-}));
+});
 clearButton.addEventListener("click", () => {
     clear();
     updateDisplay();
