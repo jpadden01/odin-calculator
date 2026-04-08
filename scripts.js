@@ -98,6 +98,15 @@ function setNumber() {
     input = [];
 }
 
+function trimInput() {
+    const isNegative = input[0] === '-';
+    if (isNegative) input.shift();
+    while (input[0] === '0') {
+        input.shift();
+    }
+    if (isNegative) input.unshift('-');
+}
+
 numberButtons.forEach((cur) => cur.addEventListener("click", () => updateInput(cur.textContent)));
 operatorButtons.forEach((cur) => {
     switch (cur.textContent) {
