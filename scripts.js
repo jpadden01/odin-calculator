@@ -161,3 +161,4 @@ decimalButton.addEventListener("click", () => {
         updateInput('.');
     }
 });
+backspaceButton.addEventListener("click", backspace);
