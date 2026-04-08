@@ -140,3 +140,9 @@ clearButton.addEventListener("click", () => {
     clear();
     updateDisplay();
 });
+decimalButton.addEventListener("click", () => {
+    if (!input.includes('.')) {
+        updateNumber('.');
+        updateDisplay();
+    }
+});
