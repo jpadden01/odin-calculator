@@ -56,7 +56,7 @@ function divide() {
     return num1 / num2;
 }
 
-function updateNumber(num) {
+function updateInput(num) {
     input.push(num);
     recentlyOperated = false;
     updateDisplay();
@@ -98,7 +98,7 @@ function setNumber() {
     input = [];
 }
 
-numberButtons.forEach((cur) => cur.addEventListener("click", () => updateNumber(cur.textContent)));
+numberButtons.forEach((cur) => cur.addEventListener("click", () => updateInput(cur.textContent)));
 operatorButtons.forEach((cur) => {
     switch (cur.textContent) {
         case "=":
@@ -142,7 +142,7 @@ clearButton.addEventListener("click", () => {
 });
 decimalButton.addEventListener("click", () => {
     if (!input.includes('.')) {
-        updateNumber('.');
+        updateInput('.');
         updateDisplay();
     }
 });
