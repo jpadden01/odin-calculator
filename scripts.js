@@ -3,8 +3,8 @@ const MAX_VALUE = 10 ** DISPLAY_WIDTH;
 const MIN_VALUE = -(10 ** (DISPLAY_WIDTH - 1));
 
 let num1Global;
-let operatorGlobal;
 let num2Global;
+let operatorGlobal;
 let recentlyOperated;
 
 const display = document.querySelector(".display-value");
@@ -57,13 +57,9 @@ function updateNumber(num) {
     if (recentlyOperated) {
         num1Global = Number(num);
     } else if (operatorGlobal === undefined) {
-        num1Global = (num1Global === undefined)? 
-            Number(num)
-            : Number(num1Global.toString() + num);
+        num1Global = (num1Global === undefined)? Number(num) : Number(num1Global.toString() + num);
     } else {
-        num2Global = (num2Global === undefined)? 
-            Number(num)
-            : Number(num2Global.toString() + num);
+        num2Global = (num2Global === undefined)? Number(num) : Number(num2Global.toString() + num);
     }
     recentlyOperated = false;
     updateDisplay();    
