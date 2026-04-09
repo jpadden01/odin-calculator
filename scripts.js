@@ -10,11 +10,54 @@ let recentlyOperated;
 let input = [];
 
 const display = document.querySelector(".display-value");
-const numberButtons = document.querySelectorAll(".number, .zero");
-const operatorButtons = document.querySelectorAll(".operator");
-const clearButton = document.querySelector(".clear");
-const decimalButton = document.querySelector('.decimal');
-const backspaceButton = document.querySelector('.backspace');
+
+function setupButtons() {
+    const numberButtons = document.querySelectorAll(".number, .zero");
+    const operatorButtons = document.querySelectorAll(".operator");
+    const clearButton = document.querySelector(".clear");
+    const decimalButton = document.querySelector('.decimal');
+    const backspaceButton = document.querySelector('.backspace');
+
+    numberButtons.forEach((cur) => cur.addEventListener("click", () => updateInput(cur.textContent)));
+    operatorButtons.forEach((cur) => {
+        switch (cur.textContent) {
+            case "=":
+                cur.addEventListener("click", () => {
+                    setNumber();
+                    operate();
+                });
+                break;
+            case "-":
+                cur.addEventListener("click", () => {
+                    if (recentlyOperated) {
+                        operator = "-";
+                        return recentlyOperated = false;
+                    }
+
+                    if (!input.length) return updateInput("-");
+
+                    setNumber();
+                    if (operator) operate();
+                    operator = "-";
+                });
+                break;
+            default:
+                cur.addEventListener("click", () => {
+                    if (!recentlyOperated) setNumber();
+                    recentlyOperated = false;
+                    if (operator) operate();
+                    operator = cur.textContent;
+                });
+        }
+    });
+    clearButton.addEventListener("click", () => {
+        clear();
+    });
+    decimalButton.addEventListener("click", () => {
+        if (!input.includes('.')) updateInput('.');
+    });
+    backspaceButton.addEventListener("click", backspace);
+}
 
 function operate() {
     switch (operator) {
@@ -94,42 +137,4 @@ function backspace() {
     updateDisplay();
 }
 
-numberButtons.forEach((cur) => cur.addEventListener("click", () => updateInput(cur.textContent)));
-operatorButtons.forEach((cur) => {
-    switch (cur.textContent) {
-        case "=":
-            cur.addEventListener("click", () => {
-                setNumber();
-                operate();
-            });
-            break;
-        case "-":
-            cur.addEventListener("click", () => {
-                if (recentlyOperated) {
-                    operator = "-";
-                    return recentlyOperated = false;
-                }
-
-                if (!input.length) return updateInput("-");
-
-                setNumber();
-                if (operator) operate();
-                operator = "-";
-            });
-            break;
-        default:
-            cur.addEventListener("click", () => {
-                if (!recentlyOperated) setNumber();
-                recentlyOperated = false;
-                if (operator) operate();
-                operator = cur.textContent;
-            });
-    }
-});
-clearButton.addEventListener("click", () => {
-    clear();
-});
-decimalButton.addEventListener("click", () => {
-    if (!input.includes('.')) updateInput('.');
-});
-backspaceButton.addEventListener("click", backspace);
+setupButtons();
