@@ -11,7 +11,7 @@ let input = [];
 
 const display = document.querySelector(".display-value");
 
-function setupButtons() {
+function setupInput() {
     const numberButtons = document.querySelectorAll(".number, .zero");
     const operatorButtons = document.querySelectorAll(".operator");
     const clearButton = document.querySelector(".clear");
@@ -57,9 +57,7 @@ function setupButtons() {
         if (!input.includes('.')) updateInput('.');
     });
     backspaceButton.addEventListener("click", backspace);
-}
 
-function setupKeyboard() {
     document.addEventListener("keydown", (e) => {
         console.log(e.key)
         if (!isNaN(e.key) || (e.key === '.' && !input.includes('.'))) {
@@ -185,5 +183,4 @@ function backspace() {
     updateDisplay();
 }
 
-setupButtons();
-setupKeyboard();
+setupInput();
