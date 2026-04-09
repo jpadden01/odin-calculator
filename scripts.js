@@ -61,7 +61,9 @@ function setupButtons() {
 
 function setupKeyboard() {
     document.addEventListener("keydown", (e) => {
-        if (!isNaN(e.key)) return updateInput(e.key);
+        if (!isNaN(e.key) || (e.key === '.' && !input.includes('.'))) {
+            return updateInput(e.key);
+        }
     });
 }
 
