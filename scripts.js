@@ -31,6 +31,13 @@ function setupInput() {
         operator = "-";
     }
 
+    function operatorInput(input) {
+        if (!recentlyOperated) setNumber();
+        recentlyOperated = false;
+        if (operator) operate();
+        operator = input;
+    }
+
     const numberButtons = document.querySelectorAll(".number, .zero");
     const operatorButtons = document.querySelectorAll(".operator");
     const clearButton = document.querySelector(".clear");
@@ -47,12 +54,7 @@ function setupInput() {
                 cur.addEventListener("click", minusInput);
                 break;
             default:
-                cur.addEventListener("click", () => {
-                    if (!recentlyOperated) setNumber();
-                    recentlyOperated = false;
-                    if (operator) operate();
-                    operator = cur.textContent;
-                });
+                cur.addEventListener("click", () => operatorInput(cur.textContent));
         }
     });
     clearButton.addEventListener("click", () => {
@@ -73,25 +75,16 @@ function setupInput() {
                 backspace();
                 break;
             case "+":
-                if (!recentlyOperated) setNumber();
-                recentlyOperated = false;
-                if (operator) operate();
-                operator = e.key;
+                operatorInput("+");
                 break;
             case "-":
                 minusInput();
                 break;
             case "*":
-                if (!recentlyOperated) setNumber();
-                recentlyOperated = false;
-                if (operator) operate();
-                operator = "×";
+                operatorInput("*");
                 break;
             case "/":
-                if (!recentlyOperated) setNumber();
-                recentlyOperated = false;
-                if (operator) operate();
-                operator = "÷";
+                operatorInput("/");
                 break;
             case "=":
             case "Enter":
