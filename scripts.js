@@ -13,6 +13,7 @@ const display = document.querySelector(".display-value");
 
 function setupInput() {
     function equalsInput() {
+        if (!operator) return;
         setNumber();
         operate();
     }
