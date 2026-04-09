@@ -60,7 +60,9 @@ function setupButtons() {
 }
 
 function setupKeyboard() {
-    document.addEventListener("keydown", (e) => console.log(e.key));
+    document.addEventListener("keydown", (e) => {
+        if (!isNaN(e.key)) return updateInput(e.key);
+    });
 }
 
 function operate() {
