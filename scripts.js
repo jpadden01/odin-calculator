@@ -161,7 +161,7 @@ function setNumber() {
 function trimInput() {
     const isNegative = input[0] === '-';
     if (isNegative) input.shift();
-    while (input[0] === '0') {
+    while (input[0] === '0' && input.length > 1) {
         input.shift();
     }
     if (isNegative) input.unshift('-');
