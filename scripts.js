@@ -99,6 +99,10 @@ function setupKeyboard() {
                 if (operator) operate();
                 operator = "÷";
                 break;
+            case "=":
+            case "Enter":
+                setNumber();
+                operate();
         }
     });
 }
