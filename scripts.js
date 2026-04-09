@@ -64,6 +64,11 @@ function setupKeyboard() {
         if (!isNaN(e.key) || (e.key === '.' && !input.includes('.'))) {
             return updateInput(e.key);
         }
+        switch (e.key) {
+            case "Backspace":
+                backspace();
+                break;
+        }
     });
 }
 
