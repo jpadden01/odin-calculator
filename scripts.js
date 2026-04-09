@@ -66,7 +66,6 @@ function setupInput() {
     backspaceButton.addEventListener("click", backspace);
 
     document.addEventListener("keydown", (e) => {
-        console.log(e.key)
         if (!isNaN(e.key) || (e.key === '.' && !input.includes('.'))) {
             return updateInput(e.key);
         }
