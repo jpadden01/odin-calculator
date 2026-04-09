@@ -19,42 +19,24 @@ const backspaceButton = document.querySelector('.backspace');
 function operate() {
     switch (operator) {
         case "+":
-            num1 = add();
+            num1 = num1 + num2;
             break;
         case "-":
-            num1 = subtract();
+            num1 = num1 - num2;
             break;
         case "×":
-            num1 = multiply();
+            num1 = num1 * num2;
             break;
         case "÷":
-            num1 = divide();
+            const isZero = num2 === 0;
+            if (isZero) alert("Can not divide by zero");
+            num1 = isZero ? num1 : num1 / num2;
             break;
     }
     num2 = undefined;
     operator = undefined;
     recentlyOperated = true;
     updateDisplay();
-}
-
-function add() {
-    return num1 + num2;
-}
-
-function subtract() {
-    return num1 - num2;
-}
-
-function multiply() {
-    return num1 * num2;
-}
-
-function divide() {
-    if (num2 === 0) {
-        alert("Can not divide by zero");
-        return num1;
-    }
-    return num1 / num2;
 }
 
 function updateInput(num) {
@@ -68,14 +50,12 @@ function updateDisplay() {
     const displayValue = recentlyOperated ? String(num1) : input.join("");
 
     if (Number(displayValue) > MAX_VALUE || Number(displayValue < MIN_VALUE)) {
-        display.textContent = "Too large...";
         clear();
-        return;
+        return display.textContent = "Too large...";
     }
 
     if (displayValue.length > DISPLAY_WIDTH) {
-        display.textContent = displayValue.substring(0, DISPLAY_WIDTH);
-        return;
+        return display.textContent = displayValue.substring(0, DISPLAY_WIDTH);
     }
 
     display.textContent = displayValue;
@@ -92,13 +72,12 @@ function clear() {
 
 function setNumber() {
     const inputNumber = Number(input.join(""));
-    if (recentlyOperated || !operator) {
-        num1 = inputNumber;
-        recentlyOperated = false;
-    } else {
-        num2 = inputNumber;
-    }
     input = [];
+    if (recentlyOperated || !operator) {
+        recentlyOperated = false;
+        return num1 = inputNumber;
+    }
+    num2 = inputNumber;
 }
 
 function trimInput() {
@@ -128,27 +107,21 @@ operatorButtons.forEach((cur) => {
             cur.addEventListener("click", () => {
                 if (recentlyOperated) {
                     operator = "-";
-                    recentlyOperated = false;
-                } else if (!input.length) {
-                    updateInput("-");
-                } else {
-                    setNumber();
-                    if (operator) {
-                        operate();
-                    }
-                    operator = "-";
+                    return recentlyOperated = false;
                 }
+
+                if (!input.length) return updateInput("-");
+
+                setNumber();
+                if (operator) operate();
+                operator = "-";
             });
             break;
         default:
             cur.addEventListener("click", () => {
-                if (!recentlyOperated) {
-                    setNumber();
-                }
+                if (!recentlyOperated) setNumber();
                 recentlyOperated = false;
-                if (operator) {
-                    operate();
-                }
+                if (operator) operate();
                 operator = cur.textContent;
             });
     }
@@ -157,8 +130,6 @@ clearButton.addEventListener("click", () => {
     clear();
 });
 decimalButton.addEventListener("click", () => {
-    if (!input.includes('.')) {
-        updateInput('.');
-    }
+    if (!input.includes('.')) updateInput('.');
 });
 backspaceButton.addEventListener("click", backspace);
