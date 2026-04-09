@@ -59,6 +59,10 @@ function setupButtons() {
     backspaceButton.addEventListener("click", backspace);
 }
 
+function setupKeyboard() {
+    document.addEventListener("keydown", (e) => console.log(e.key));
+}
+
 function operate() {
     switch (operator) {
         case "+":
@@ -138,3 +142,4 @@ function backspace() {
 }
 
 setupButtons();
+setupKeyboard();
