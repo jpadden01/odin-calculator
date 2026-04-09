@@ -12,6 +12,11 @@ let input = [];
 const display = document.querySelector(".display-value");
 
 function setupInput() {
+    function equalsInput() {
+        setNumber();
+        operate();
+    }
+
     const numberButtons = document.querySelectorAll(".number, .zero");
     const operatorButtons = document.querySelectorAll(".operator");
     const clearButton = document.querySelector(".clear");
@@ -22,10 +27,7 @@ function setupInput() {
     operatorButtons.forEach((cur) => {
         switch (cur.textContent) {
             case "=":
-                cur.addEventListener("click", () => {
-                    setNumber();
-                    operate();
-                });
+                cur.addEventListener("click", equalsInput);
                 break;
             case "-":
                 cur.addEventListener("click", () => {
@@ -99,8 +101,8 @@ function setupInput() {
                 break;
             case "=":
             case "Enter":
-                setNumber();
-                operate();
+                equalsInput();
+                break;
         }
     });
 }
