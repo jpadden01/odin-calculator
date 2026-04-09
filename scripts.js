@@ -61,12 +61,43 @@ function setupButtons() {
 
 function setupKeyboard() {
     document.addEventListener("keydown", (e) => {
+        console.log(e.key)
         if (!isNaN(e.key) || (e.key === '.' && !input.includes('.'))) {
             return updateInput(e.key);
         }
         switch (e.key) {
             case "Backspace":
                 backspace();
+                break;
+            case "+":
+                if (!recentlyOperated) setNumber();
+                recentlyOperated = false;
+                if (operator) operate();
+                operator = e.key;
+                break;
+            case "-":
+                if (recentlyOperated) {
+                    operator = "-";
+                    return recentlyOperated = false;
+                }
+
+                if (!input.length) return updateInput("-");
+
+                setNumber();
+                if (operator) operate();
+                operator = "-";
+                break;
+            case "*":
+                if (!recentlyOperated) setNumber();
+                recentlyOperated = false;
+                if (operator) operate();
+                operator = "×";
+                break;
+            case "/":
+                if (!recentlyOperated) setNumber();
+                recentlyOperated = false;
+                if (operator) operate();
+                operator = "÷";
                 break;
         }
     });
