@@ -1,6 +1,11 @@
+body {
+    background-color: #F3F3F4;
+}
+
 body,
 button {
     font-family: "Datatype", monospace;
+    color: #F3F3F4;
 }
 
 .calculator {
@@ -11,7 +16,7 @@ button {
 
     margin: 40px auto;
     border: 1px solid black;
-    background-color: silver;
+    background-color: #2E2836;
     padding: 32px;
 
     display: flex;
@@ -25,7 +30,7 @@ button {
     flex: 1;
 
     border: 1px solid black;
-    background-color: white;
+    background-color: #587B7F;
     padding: 8px;
 
     display: flex;
@@ -55,7 +60,7 @@ button {
 .numbers {
     flex: 6;
     padding: 8px;
-    background-color: darkgray;
+    background-color: #433a4e;
 }
 
 .operators {
@@ -75,4 +80,5 @@ button {
 
 button {
     flex: 1;
+    background-color: #6A2E35;
 }
