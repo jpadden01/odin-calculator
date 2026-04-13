@@ -1,4 +1,4 @@
-const DISPLAY_WIDTH = 12;
+const DISPLAY_WIDTH = 28;
 const MAX_VALUE = 10 ** DISPLAY_WIDTH;
 const MIN_VALUE = -(10 ** (DISPLAY_WIDTH - 1));
 
