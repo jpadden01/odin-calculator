@@ -6,6 +6,7 @@ body,
 button {
     font-family: "Datatype", monospace;
     color: #F3F3F4;
+    font-size: 48px;
 }
 
 .calculator {
@@ -36,8 +37,6 @@ button {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
-    font-size: 48px;
 }
 
 .buttons {
@@ -81,4 +80,9 @@ button {
 button {
     flex: 1;
     background-color: #6A2E35;
+    font-size: 32px;
+}
+
+.clear {
+    color: #ff4144;
 }
